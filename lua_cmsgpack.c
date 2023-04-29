@@ -803,7 +803,7 @@ int mp_unpack_full(lua_State *L, int limit, int offset) {
         return luaL_error(L,
             "Invalid request to unpack with offset of %d and limit of %d.",
             offset, len);
-    else if (offset > len)
+    else if ((size_t)offset > len)
         return luaL_error(L,
             "Start offset %d greater than input length %d.", offset, len);
 
@@ -898,7 +898,7 @@ const struct luaL_Reg cmds[] = {
 };
 
 int luaopen_create(lua_State *L) {
-    int i;
+    size_t i;
     /* Manually construct our module table instead of
      * relying on _register or _newlib */
     lua_newtable(L);
@@ -933,7 +933,7 @@ LUALIB_API int luaopen_cmsgpack(lua_State *L) {
 }
 
 LUALIB_API int luaopen_cmsgpack_safe(lua_State *L) {
-    int i;
+    size_t i;
 
     luaopen_cmsgpack(L);
 
